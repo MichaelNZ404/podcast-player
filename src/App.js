@@ -1,26 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import headphones from './headphones-static.svg';
 import './App.css';
 
+import Loader from './components/loader';
+import Library from './components/Library';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import {
+  Layout, Menu,
+} from 'antd';
+
+const {
+  Header, Content, Footer,
+} = Layout;
+
 class App extends Component {
-  render() {
+  state = {
+    collapsed: false,
+  };
+
+  onCollapse = (collapsed) => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  }
+
+ render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Layout className="layout">
+          <Header>
+            <img src={headphones} style={{float: "left", marginTop: "7px"}} alt="logo" />
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['home']}
+              style={{ lineHeight: '64px' }}
+            >
+              <Menu.Item key="home" className="red"><Link to="/">Home</Link></Menu.Item>
+              <Menu.Item key="about" className="red"><Link to="/about/">About</Link></Menu.Item>
+            </Menu>
+          </Header>
+          <Content style={{ padding: '0 50px' }}>
+            <Route path="/" exact component={Library} />
+            <Route path="/about/" component={Loader} />
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Podsync ©2019 Created by Michael Coleman
+          </Footer>
+        </Layout>
+      </Router>
     );
   }
 }

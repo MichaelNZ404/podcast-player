@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ant-menu-item.red,
+.red {
+  color: #FF2975;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected{
+  background-color: inherit;
+  color: white;
+}
