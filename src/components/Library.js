@@ -2,10 +2,12 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
 import { Carousel } from 'antd';
-import './Library.css';
+import styled from 'styled-components/macro'
 
 const DATA = require('../../src/us-top-100-podcasts.json')
 const SLIDES_TO_SHOW = 6;
+// const colour = '#FF2975';
+const colour = '#000000';
 
 export type Props  = {
     itunes_rss: string;
@@ -23,6 +25,54 @@ export type State = {
     loading: boolean,
     podcasts: Array<any>,
 }
+
+const GenreStrip = styled.div`
+    h1 {
+        text-align: center;
+        color: ${colour};
+        border-bottom: 0.5 px solid ${colour};
+        width:100%;
+        font-size: 2em;
+    }
+
+    .ant-carousel .slick-dots li.slick-active button,
+    .ant-carousel .slick-dots li button{
+        background: ${colour};
+    }
+
+    .slick-arrow {
+        top: 37%;
+    }
+    .slick-next:before, .slick-prev:before {
+        color: ${colour};
+    }
+    .slick-dots li {
+        width: auto;
+
+        button::before{
+            display: none;
+        }
+    }
+`
+
+const PodcastCard = styled.div`
+    margin-right: 10px;
+    margin-bottom: 35px;
+    img {
+        border: 3px solid ${colour};
+        width: 100%;
+    }
+
+    .podcast-details{
+        margin-bottom: 0px;
+        h2 {
+            font-size: 1.1em;
+        }
+        h3 {
+            font-size: 0.8em;
+        }
+    }
+`
 
 class Library extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -52,14 +102,14 @@ export function LibraryCard(props: Podcast) {
     const link = `/podcast/${getpodIdFromUrl(props.url)}`;
     return (
         <Link to={link} >
-            <div className="podcast-card">
-                <img className="podcast-image" src={props.artworkUrl100} alt={props.name} />
+            <PodcastCard>
+                <img src={props.artworkUrl100} alt={props.name} />
                 <div className="podcast-details">
                     <h2>{props.artistName}</h2>
                     <h3>{props.name}</h3>
                 </div>
                 <div className="clearfix" />
-            </div>
+            </PodcastCard>
         </Link>
     );
 }
@@ -118,9 +168,9 @@ function GenreStripCard(genre: Genre) {
         arrows: true
         };
     return (
-        <div className='genre-strip'>
+        <GenreStrip>
             <h1>{genre.name}</h1>
             <Carousel {...settings}>{cards}</Carousel>
-        </div> 
+        </GenreStrip> 
     );
 }
