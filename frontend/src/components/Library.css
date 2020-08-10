@@ -1,5 +1,5 @@
 .podcast-image{
-    border: 3px solid #FF2975;
+    border: 3px solid #4267B2;
     width: 100%
 }
 
@@ -10,7 +10,7 @@
 
 .ant-carousel .slick-dots li.slick-active button,
 .ant-carousel .slick-dots li button{
-    background: #FF2975;
+    background: #4267B2;
 }
 
 .podcast-details > h3,
@@ -27,13 +27,13 @@
 
 h1{
     text-align: center;
-    color: #FF2975;
-    border-bottom: 3px solid #FF2975;
+    color: #4267B2;
+    border-bottom: 3px solid #4267B2;
     width:100%;
     font-size: 2em;
 }
 .ant-carousel .slick-prev,
 .ant-carousel .slick-prev:hover{
     background-color: white;
-    color: #FF2975
+    color: #4267B2
 }

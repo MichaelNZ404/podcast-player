@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 60" width="50px" height="50px">
   <defs>
     <linearGradient id="gradient" fy="100%">
-      <stop offset="0%" stop-color="#ff2975" stop-opacity="1">
+      <stop offset="0%" stop-color="#4267B2" stop-opacity="1">
         <animate attributeName="stop-color" dur="1s" values="#8c1eff; #FF00FF; #8c1eff" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" stop-color="#ff2975" stop-opacity="1">
+      <stop offset="100%" stop-color="#4267B2" stop-opacity="1">
         <animate attributeName="stop-color" dur="1s" values="#FF00FF; #ffd319; #FF00FF" repeatCount="indefinite"/>
       </stop>
     </linearGradient>

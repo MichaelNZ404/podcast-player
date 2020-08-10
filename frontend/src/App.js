@@ -44,9 +44,6 @@ class App extends Component {
             <Route path="/" exact component={Library} />
             <Route path="/about/" component={Loader} />
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Podsync ©2019 Created by Michael Coleman
-          </Footer>
         </Layout>
       </Router>
     );
