@@ -40,7 +40,7 @@ class App extends Component {
               <Menu.Item key="about" className="red"><Link to="/about/">About</Link></Menu.Item>
             </Menu>
           </Header>
-          <Content style={{ padding: '0 50px' }}>
+          <Content>
             <Route path="/" exact component={Library} />
             <Route path="/about/" component={Loader} />
           </Content>

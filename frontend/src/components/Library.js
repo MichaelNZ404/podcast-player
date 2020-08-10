@@ -39,7 +39,7 @@ class Library extends React.Component<Props, State> {
         }
         const genres = getPodcastGenres(this.state.podcasts);
         const strips = Object.keys(genres).map((key: string) => 
-            <div key={key}><GenreStripCard  name={key} podcasts={genres[key]} /></div>);
+            <GenreStripCard name={key} podcasts={genres[key]} key={key} />);
         return (
             <div className="library-container">{strips}</div>
         );
