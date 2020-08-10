@@ -25,15 +25,33 @@
     font-size: 0.8em;
 }
 
-h1{
+h1 {
     text-align: center;
     color: #4267B2;
     border-bottom: 3px solid #4267B2;
     width:100%;
     font-size: 2em;
 }
-.ant-carousel .slick-prev,
-.ant-carousel .slick-prev:hover{
-    background-color: white;
-    color: #4267B2
+
+.genre-strip{
+    margin: 40px 0px;
+}
+
+.slick-prev,
+.slick-next{
+    top: 38% !important;
+}
+.slick-prev:before{
+    content: '\F0A8' !important;
+}
+.slick-next:before{
+    content: '\F0A9' !important;
+}
+.slick-prev:before,
+.slick-next:before
+{
+    font-size: 20px;
+    color: #4267B2;
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
 }

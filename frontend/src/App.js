@@ -11,7 +11,7 @@ import {
 } from 'antd';
 
 const {
-  Header, Content, Footer,
+  Header, Content,
 } = Layout;
 
 class App extends Component {
