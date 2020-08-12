@@ -10,3 +10,9 @@ Built in Django, React, and Ant Design
 - Run `docker-compose up`
 - Visit http://0.0.0.0:3000/ to interact with the React frontend
 - Backend django API runs at http://0.0.0.0:8000/
+
+### Working with code locally
+- To have live frontend changes, make sure you have run `npm i` locally, and mounted the frontend directory inside of docker-compose.yml (commented out by    default)
+
+## Troubleshooting:
+- Rebuild the images with `docker-compose up --build`

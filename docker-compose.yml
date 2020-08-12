@@ -3,14 +3,17 @@ version: '3.7'
 services:
   frontend:
     build: frontend
-    volumes:
-      - './frontend/:/app'
+    # volumes:
+    #   - './frontend/:/app'
     ports:
       - '3000:3000'
     environment:
       - NODE_ENV=development
   db:
-    image: postgres
+    image: postgres:12.3
+    environment:
+      POSTGRES_DB: "django"
+      POSTGRES_PASSWORD: "django"
   web:
     build: backend
     command: python manage.py runserver 0.0.0.0:8000
