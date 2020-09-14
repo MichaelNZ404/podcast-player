@@ -16,3 +16,4 @@ Built in Django, React, and Ant Design
 
 ## Troubleshooting:
 - Rebuild the images with `docker-compose up --build`
+- To fix ESLint typescript errors with flow in VSCode add `"javascript.validate.enable": false` to settings

@@ -17,11 +17,15 @@ export type Podcast = {
     releaseDate: string,
     name: string,
     artworkUrl100: string,
-    genres: Array<Genre>
+    genres: Array<string>
 }
 export type State = {
     loading: boolean,
     podcasts: Array<any>,
+}
+interface Genre {
+    name:    string;
+    podcasts: Array<Podcast>;
 }
 
 class Library extends React.Component<Props, State> {
@@ -75,15 +79,11 @@ function getpodIdFromUrl(url: string): number {
     } 
 
     if (!podID) {
-        throw "Provided url seems to be invalid";
+        throw new Error("Provided url seems to be invalid");
     }
     return podID
 }
 
-interface Genre {
-    name:    string;
-    podcasts: Array<Podcast>;
-}
 function getPodcastGenres(podcasts: Array<Podcast>) {
     let genres = {};
     podcasts.forEach((podcast) => {

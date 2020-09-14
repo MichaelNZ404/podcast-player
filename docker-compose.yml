@@ -3,12 +3,13 @@ version: '3.7'
 services:
   frontend:
     build: frontend
-    # volumes:
-    #   - './frontend/:/app'
+    volumes:
+      - './frontend/:/app' #comment me to disable frontend updating
     ports:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
   db:
     image: postgres:12.3
     environment:
