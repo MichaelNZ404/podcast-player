@@ -17,3 +17,14 @@ Built in Django, React, and Ant Design
 ## Troubleshooting:
 - Rebuild the images with `docker-compose up --build`
 - To fix ESLint typescript errors with flow in VSCode add `"javascript.validate.enable": false` to settings
+- To run the initial migrations `docker-compose exec web python manage.py migrate --noinput`
+
+### Shelling in to containers:
+`docker ps` to get id of running container followed by `docker exec -it <containerID> /bin/bash` to launch bash inside container. 
+OR
+`docker-compose exec <name> sh` eg `docker-compose exec web sh`
+
+### Remove all docker containers/volumes:
+`docker-compose down` 
+`docker rm -f $(docker ps -a -q)`
+`docker volume rm $(docker volume ls -q)`

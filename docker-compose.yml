@@ -12,8 +12,11 @@ services:
       - CHOKIDAR_USEPOLLING=true
   db:
     image: postgres:12.3
+    volumes:
+    - postgres_data:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: "django"
+      POSTGRES_USER: "django"
       POSTGRES_PASSWORD: "django"
   web:
     build: backend
@@ -24,3 +27,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    env_file:
+      - ./backend/.env.dev
+
+volumes:
+  postgres_data:
