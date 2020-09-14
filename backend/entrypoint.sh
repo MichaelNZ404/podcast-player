@@ -5,7 +5,9 @@ while ! nc -z db 5432; do
 done
 echo "PostgreSQL started"
 
+# Initialize DB 
 python manage.py flush --no-input
 python manage.py migrate
+python manage.py loaddata podcast_player/fixtures/users.json
 
 exec "$@"

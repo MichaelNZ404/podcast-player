@@ -4,7 +4,8 @@ services:
   frontend:
     build: frontend
     volumes:
-      - './frontend/:/app' #comment me to disable frontend updating
+      - './frontend/:/app'
+      - '/app/node_modules' #comment me to use local node_modules
     ports:
       - '3000:3000'
     environment:
