@@ -1,3 +1,5 @@
 from django.contrib import admin
+from podcast_player.models import Podcast, Genre
 
-# Register your models here.
+admin.site.register(Podcast)
+admin.site.register(Genre)

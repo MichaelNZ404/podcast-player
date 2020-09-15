@@ -9,5 +9,6 @@ echo "PostgreSQL started"
 python manage.py flush --no-input
 python manage.py migrate
 python manage.py loaddata podcast_player/fixtures/users.json
+python manage.py load_itunes us-top-100-podcasts.json
 
 exec "$@"
