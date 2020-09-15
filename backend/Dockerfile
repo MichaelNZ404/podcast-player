@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8.2
 
 #netcat to ensure sync with postgres on docker-compose up
 RUN apt-get update && apt-get install netcat-openbsd -y 
