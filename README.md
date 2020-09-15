@@ -14,6 +14,7 @@ Built in Django, React, and Ant Design
 #### Backend Notes
 - `backend/entrypoint.sh` is responsible for ensuring psql is ready before django attempts to run. It also flushes, migrates and loads the fixtures. For manual control of database data, remove those lines. 
 - Superuser provided within fixture `users.json` is user `admin` with matching password, so you can log into the django backend http://0.0.0.0:8000/admin without needing to createsuperuser
+- Run tests manually with `docker-compose exec web pytest` while local environment is running
 
 #### Frontend Notes
 - By default, the hosts node_modules is not mounted inside the container with the rest of the frontend application. If you install an npm module while developing locally you must either rebuild the frontend container or comment out the annonymous node_modules volume in `docker-compose.yml`
