@@ -10,6 +10,8 @@ contextlib2==0.6.0
 distlib==0.3.0
 distro==1.4.0
 Django==3.1.1
+django-filter==2.3.0
+djangorestframework==3.11.1
 html5lib==1.0.1
 idna==2.8
 iniconfig==1.0.1
@@ -17,6 +19,7 @@ ipaddr==2.2.0
 isort==5.5.2
 lazy-object-proxy==1.4.3
 lockfile==0.12.2
+Markdown==3.2.2
 mccabe==0.6.1
 more-itertools==8.5.0
 msgpack==0.6.2
