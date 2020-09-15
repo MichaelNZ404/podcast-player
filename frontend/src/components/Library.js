@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { Carousel } from 'antd';
 import './Library.css';
@@ -7,8 +7,8 @@ import './Library.css';
 const DATA = require('../../src/us-top-100-podcasts.json')
 const SLIDES_TO_SHOW = 6;
 
-export type Props  = {
-    itunes_rss: string;
+export type Genre = {
+    name: string,
 }
 export type Podcast = {
     url: string,
@@ -17,42 +17,31 @@ export type Podcast = {
     releaseDate: string,
     name: string,
     artworkUrl100: string,
-    genres: Array<string>
+    genres: Array<Genre>,
+}
+export type DenseGenre = {
+    name: string,
+    podcasts: Array<Podcast>,
 }
 export type State = {
     loading: boolean,
     podcasts: Array<any>,
 }
-interface Genre {
-    name:    string;
-    podcasts: Array<Podcast>;
-}
 
-class Library extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            loading: false,
-            podcasts: DATA['feed']['results']
-        }
+export const Library = () => {
+    const [podcasts, setPodcasts] = useState(DATA['feed']['results']);
+    const [loading, setLoading] = useState(false); //TODO: set this to default true when backend api is being called.
+
+    if (loading) {
+        return <span>Loading</span>
     }
 
-    render() {
-        if (this.state.loading) {
-            return <span>Loading</span>
-        }
-        const genres = getPodcastGenres(this.state.podcasts);
-        const strips = Object.keys(genres).map((key: string) => 
-            <GenreStripCard name={key} podcasts={genres[key]} key={key} />);
-        return (
-            <div className="library-container">{strips}</div>
-        );
-    }
-
+    const genres = getPodcastGenres(podcasts);
+    const strips = Object.keys(genres).map((key: string) => <GenreStripCard name={key} podcasts={genres[key]} key={key} />);    
+    return <div className="library-container">{strips}</div>
 }
-export default Library;
 
-export function LibraryCard(props: Podcast) {
+export const LibraryCard = (props: Podcast) => {
     const link = `/podcast/${getpodIdFromUrl(props.url)}`;
     return (
         <Link to={link} >
@@ -68,23 +57,19 @@ export function LibraryCard(props: Podcast) {
     );
 }
 
-function getpodIdFromUrl(url: string): number {
+const getpodIdFromUrl = (url: string): number => {
     let match = url.match(/id(\d+)/)
-    let podID: any = null;
-
     if (match) {
-        podID = match[1]; 
-    } else {
-        podID = url.match(/\d+/);  // 123456 
+        return parseInt(match[1]); 
     } 
-
-    if (!podID) {
-        throw new Error("Provided url seems to be invalid");
-    }
-    return podID
+    match = url.match(/\d+/); //try less structured match 
+    if (match) {
+        return parseInt(match[1]); 
+    } 
+    throw new Error("Provided url seems to be invalid");
 }
 
-function getPodcastGenres(podcasts: Array<Podcast>) {
+const getPodcastGenres = (podcasts: Array<Podcast>) => {
     let genres = {};
     podcasts.forEach((podcast) => {
         podcast.genres.forEach((genre: Genre) => {
@@ -99,14 +84,14 @@ function getPodcastGenres(podcasts: Array<Podcast>) {
     })
 
     Object.keys(genres).forEach((key) => {
-        if    (genres[key].length < SLIDES_TO_SHOW) {
+        if(genres[key].length < SLIDES_TO_SHOW) {
             delete genres[key]
         }
     });
     return genres
 }
 
-function GenreStripCard(genre: Genre) {
+const GenreStripCard = (genre: DenseGenre) => {
     const cards = genre['podcasts'].map((podcast: Podcast) => 
         <div key={podcast.id} className="item"><LibraryCard  {...podcast} /></div>);
     const settings = {

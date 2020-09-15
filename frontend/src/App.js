@@ -3,7 +3,7 @@ import headphones from './headphones-static.svg';
 import './App.css';
 
 import Loader from './components/loader';
-import Library from './components/Library';
+import { Library } from './components/Library';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import {

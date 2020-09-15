@@ -19,6 +19,8 @@ Built in Django, React, and Ant Design
 
 #### Frontend Notes
 - By default, the hosts node_modules is not mounted inside the container with the rest of the frontend application. If you install an npm module while developing locally you must either rebuild the frontend container or comment out the annonymous node_modules volume in `docker-compose.yml`
+- Check for flow type errors with `npm run flow`
+- Check for vulnerabilities with npm audit `npm audit`
 
 #### Troubleshooting / Help:
 - Rebuild the images with `docker-compose up --build`
