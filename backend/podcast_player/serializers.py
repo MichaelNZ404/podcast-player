@@ -17,10 +17,22 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class PodcastSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Podcast
-        fields = ['name']
+        fields = ['name', 'itunes_id', 'url', 'artist_name', 'release_date', 'artwork_url']
 
 
 class GenreSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Genre
-        fields = ['name']
+        fields = ['name', 'itunes_id', 'url']
+
+class DeepPodcastSerializer(serializers.HyperlinkedModelSerializer):
+    genres = GenreSerializer(many=True, read_only=True)
+    class Meta:
+        model = Podcast
+        fields = ['name', 'itunes_id', 'genres', 'url', 'artist_name', 'release_date', 'artwork_url']
+
+class DeepGenreSerializer(serializers.HyperlinkedModelSerializer):
+    podcast_set = PodcastSerializer(many=True, read_only=True)
+    class Meta:
+        model = Podcast
+        fields = ['name', 'itunes_id', 'url', 'podcast_set']

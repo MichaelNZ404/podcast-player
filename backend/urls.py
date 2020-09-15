@@ -7,6 +7,9 @@ router = routers.DefaultRouter()
 
 router.register(r'podcasts', views.PodcastViewSet)
 router.register(r'genres', views.GenreViewSet)
+router.register(r'deep_podcasts', views.DeepPodcastViewSet)
+router.register(r'deep_genres', views.DeepGenreViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

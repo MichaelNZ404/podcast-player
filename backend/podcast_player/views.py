@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from podcast_player.serializers import UserSerializer, GroupSerializer, PodcastSerializer, GenreSerializer
+from podcast_player.serializers import UserSerializer, GroupSerializer, PodcastSerializer, GenreSerializer, DeepPodcastSerializer, DeepGenreSerializer
 from podcast_player.models import Podcast, Genre
 
 
@@ -23,3 +23,11 @@ class PodcastViewSet(viewsets.ModelViewSet):
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+
+class DeepPodcastViewSet(viewsets.ModelViewSet):
+    queryset = Podcast.objects.all()
+    serializer_class = DeepPodcastSerializer
+
+class DeepGenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = DeepGenreSerializer
