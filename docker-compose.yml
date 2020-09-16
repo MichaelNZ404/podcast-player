@@ -11,6 +11,7 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+    stdin_open: true # keep container up with latest version of react scripts
   db:
     image: postgres:12.3
     volumes:

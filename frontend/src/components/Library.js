@@ -1,5 +1,6 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import { Carousel } from 'antd';
 import './Library.css';
@@ -29,8 +30,15 @@ export type State = {
 }
 
 export const Library = () => {
-    const [podcasts, setPodcasts] = useState(DATA['feed']['results']);
-    const [loading, setLoading] = useState(false); //TODO: set this to default true when backend api is being called.
+    const [podcasts, setPodcasts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/itunes/`).then(res => {
+            setPodcasts(res.data)
+            setLoading(false)
+        })
+    }, [])
 
     if (loading) {
         return <span>Loading</span>
