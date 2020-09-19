@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import "antd/dist/antd.css";
 import './index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+axios.defaults.baseURL = 'http://localhost:8000';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

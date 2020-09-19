@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { Carousel } from 'antd';
 import './Library.css';
 
-const DATA = require('../../src/us-top-100-podcasts.json')
+// const DATA = require('../../src/us-top-100-podcasts.json')
 const SLIDES_TO_SHOW = 6;
+const OTHER_KEY = 'Other'
+const ALL_KEY = 'All'
 
 export type Genre = {
     name: string,
@@ -34,9 +36,9 @@ export const Library = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/itunes/`).then(res => {
-            setPodcasts(res.data)
-            setLoading(false)
+        axios.get(`itunes/`).then(res => {
+            setPodcasts(res.data);
+            setLoading(false);
         })
     }, [])
 
@@ -78,8 +80,9 @@ const getpodIdFromUrl = (url: string): number => {
 }
 
 const getPodcastGenres = (podcasts: Array<Podcast>) => {
-    let genres = {};
+    let genres = {[ALL_KEY]: []};
     podcasts.forEach((podcast) => {
+        genres[ALL_KEY].push(podcast);
         podcast.genres.forEach((genre: Genre) => {
             if (genre.name === 'Podcasts' || genre.name === 'Podcasting') {
                 return
@@ -90,12 +93,51 @@ const getPodcastGenres = (podcasts: Array<Podcast>) => {
             genres[genre.name].push(podcast);
         })
     })
+    return stripSmallGenres(genres)
+}
 
+const stripSmallGenres = (genres: {[string]: Array<Podcast>}) => {
+    //If the All category is less than can fill a carousel, repeat its contents until it is long enough
+    if(genres[ALL_KEY].length < SLIDES_TO_SHOW && genres[ALL_KEY].length > 0) {
+        while(genres[ALL_KEY].length < SLIDES_TO_SHOW) {
+            genres[ALL_KEY].push(...genres[ALL_KEY])
+        }
+    }
+
+    // remove the small genres keys from our object
     Object.keys(genres).forEach((key) => {
-        if(genres[key].length < SLIDES_TO_SHOW) {
+        if (genres[key].length < SLIDES_TO_SHOW){
             delete genres[key]
         }
     });
+    return genres
+}
+
+const buildOthersGenre = (genres: {[string]: Array<Podcast>}) => {
+    //Move podcasts from genres that cannot fill a row by themselves into a new genre called Other and remove the small genres keys from our object
+    Object.keys(genres).forEach((key) => {
+        if (genres[key].length < SLIDES_TO_SHOW){
+            if(!(OTHER_KEY in genres)){
+                genres[OTHER_KEY] = []
+            }
+            genres[OTHER_KEY].push(...genres[key])
+            delete genres[key]
+        }
+    });
+
+    //Make sure podcasts in the other category are unique
+    if(OTHER_KEY in genres) {
+        const uniquePodcasts: {[string]: Podcast} = {};
+        genres[OTHER_KEY].forEach(p => uniquePodcasts[p.name] = p)
+        genres[OTHER_KEY] = Object.keys(uniquePodcasts).map(name => uniquePodcasts[name]);
+    }
+
+    //If creating the other category was necessary but the number of items is still less than can fill a carousel, repeat its contents until it is long enough
+    if(genres[OTHER_KEY].length < SLIDES_TO_SHOW && genres[OTHER_KEY].length > 0) {
+        while(genres[OTHER_KEY].length < SLIDES_TO_SHOW) {
+            genres[OTHER_KEY].push(...genres[OTHER_KEY])
+        }
+    }
     return genres
 }
 
