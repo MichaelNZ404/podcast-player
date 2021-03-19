@@ -12,7 +12,7 @@ distro==1.4.0
 Django==3.1.1
 django-cors-headers==3.5.0
 django-filter==2.3.0
-djangorestframework==3.11.1
+djangorestframework==3.11.2
 html5lib==1.0.1
 idna==2.8
 iniconfig==1.0.1
